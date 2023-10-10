@@ -20,4 +20,4 @@ FROM eclipse-temurin:17-jre
 
 COPY --from=BUILD /usr/src/app/target/*.jar /opt/target/app.jar
 
-CMD ["java", "-jar", "/opt/target/app.jar"]
+ENTRYPOINT ["java", "-jar", "/opt/target/app.jar"]

@@ -21,6 +21,13 @@ kubectl port-forward --namespace default svc/spring-dataflow-spring-cloud-datafl
 
 ```
 
+## Launching a Task
+```
+deployer.spring-dataflow-lab.kubernetes.secret-key-refs=[{envVarName: 'DB_URL', secretName: 'jdbc-connection', dataKey: 'DB_URL'}, {envVarName: 'DB_USERNAME', secretName: 'jdbc-connection', dataKey: 'DB_USERNAME'}, {envVarName: 'DB_PASSWORD', secretName: 'jdbc-connection', dataKey: 'DB_PASSWORD'}]
+deployer.spring-dataflow-lab.kubernetes.secret-refs=jdbc-connection
+```
+
 ## Notes
 * https://bitnami.com/stack/spring-cloud-dataflow/helm
 * https://github.com/spring-projects/spring-batch/blob/main/spring-batch-samples/src/main/resources/jobs/tradeJob.xml
+* https://github.com/spring-guides/gs-batch-processing
