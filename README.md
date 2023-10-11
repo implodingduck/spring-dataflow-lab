@@ -20,19 +20,57 @@ kubectl port-forward --namespace default svc/spring-dataflow-spring-cloud-datafl
 ```
 
 ## Add Application
-name: spring-dataflow-lab
+name: task-initdb
 type: task
 spring boot version: 3.x
-uri: docker:ghcr.io/implodingduck/spring-dataflow-lab:latest
+uri: docker:ghcr.io/implodingduck/spring-dataflow-lab/task-initdb:latest
+---
+name: task-people
+type: task
+spring boot version: 3.x
+uri: docker:ghcr.io/implodingduck/spring-dataflow-lab/task-people:latest
+---
+name: task-randomnumbers
+type: task
+spring boot version: 3.x
+uri: docker:ghcr.io/implodingduck/spring-dataflow-lab/task-randomnumbers:latest
+---
+name: task-product
+type: task
+spring boot version: 3.x
+uri: docker:ghcr.io/implodingduck/spring-dataflow-lab/task-product:latest
+---
+name: task-sum
+type: task
+spring boot version: 3.x
+uri: docker:ghcr.io/implodingduck/spring-dataflow-lab/task-sum:latest
 
 ## Create task
-spring-dataflow-lab
+task definition:
+```
+task-initdb
+```
+task name: task-initdb
+---
+task definition:
+```
+task-people
+```
+task name: task-people
+---
+task definition:
+```
+task-randomnumbers && <task-product || task-sum>
+```
+task name: task-sumandproduct
 
 ## Launching a Task
-
 ```
-deployer.spring-dataflow-lab.kubernetes.secret-key-refs=[{envVarName: 'DB_URL', secretName: 'jdbc-connection', dataKey: 'DB_URL'}, {envVarName: 'DB_USERNAME', secretName: 'jdbc-connection', dataKey: 'DB_USERNAME'}, {envVarName: 'DB_PASSWORD', secretName: 'jdbc-connection', dataKey: 'DB_PASSWORD'}]
-deployer.spring-dataflow-lab.kubernetes.secret-refs=jdbc-connection
+app.*.spring.batch.jdbc.table-prefix=BOOT3_BATCH_
+app.*.spring.cloud.deployer.bootVersion=3
+app.*.spring.cloud.task.initialize-enabled=false
+app.*.spring.cloud.task.schemaTarget=boot3
+app.*.spring.cloud.task.tablePrefix=BOOT3_TASK_
 ```
 
 ## Troubleshooting
